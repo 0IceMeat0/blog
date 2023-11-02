@@ -1,0 +1,72 @@
+.profile{
+  margin: auto;
+  margin-top: 110px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 30px rgba(0,0,0,.2);
+  background-color: #FFFFFF;
+  width:  384px;
+  height:  500px;
+&__title{
+  margin-top: 35px;
+  align-self: center;
+}
+&__form{
+  margin-top: 25px;
+}
+&__descriptioninput{
+  margin: 25px;
+  margin-bottom: 5px;
+}
+&__input{
+  padding: 10px;
+  margin: 10px;
+  margin-left: 25px;
+  margin-bottom: 15px;
+  width: 330px;
+  border-radius: 10px;
+  border: 1px solid rgb(160, 160, 160);
+  &::placeholder{
+    color: rgb(189, 189, 189);
+  }
+}
+&__button{
+  background-color: rgba(24, 144, 255, 1);
+  width: 330px;
+  height: 40px;
+  color: #FFFFFF;
+  margin-top: 20px;
+  margin-left: 25px;
+  border-radius: 5px;
+}
+&__description{
+  opacity: 60%;
+  font-size: 14px;
+  margin-left: 85px;
+  margin-top: 10px;
+}
+&__checkbox{
+  width: 320px;
+  margin-top: 15px;
+  margin-left: 25px;
+}
+
+}
+.link{
+  color: rgba(24, 144, 255, 1);
+}
+.checkbox{
+  margin-right: 5px;
+}
+.signup__input.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  display: flex;
+  color: red;
+  justify-content: center;
+  position: relative;
+  bottom: 15px;
+
+}

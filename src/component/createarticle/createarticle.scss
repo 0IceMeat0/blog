@@ -1,0 +1,118 @@
+.newarticle{
+  margin: auto;
+  margin-top: 110px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 30px rgba(0,0,0,.2);
+  background-color: #FFFFFF;
+  width:  938px;
+  height:  max-content;
+  
+
+&__title{
+  margin-top: 45px;
+  margin-bottom: 15px;
+  align-self: center;
+}
+&__descriptioninput{
+  margin: 25px;
+  margin-bottom: 5px;
+}
+&__input{
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  width: 95%;
+  border-radius: 10px;
+  font-size: 14px;
+  border: 1px solid rgb(160, 160, 160);
+ 
+  &::placeholder{
+    color: rgb(189, 189, 189);
+    position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  transform: translate(5px, 5px); 
+  }
+}
+&__textarea{
+  resize: none;
+  height: 127px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  width: 95%;
+  border-radius: 5px;
+  font-size: 14px;
+  border: 1px solid rgb(160, 160, 160);
+ 
+  &::placeholder{
+    color: rgb(189, 189, 189);
+    position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  transform: translate(5px, 5px); 
+  }
+}
+&__button{
+  cursor: pointer;
+  background-color: rgba(24, 144, 255, 1);
+  width: 330px;
+  height: 40px;
+  color: #FFFFFF;
+  margin-left: 25px;
+  border-radius: 5px;
+  position: relative;
+  top: 5px;
+  margin-bottom: 35px; 
+}
+&__description{
+  opacity: 60%;
+  font-size: 14px;
+  margin-left: 85px;
+  margin-top: 10px;
+  position: relative;
+  top: 5px;
+}
+}
+.link{
+  color: rgba(24, 144, 255, 1);
+}
+.button-delete{
+  margin-left: 15px;
+  border: 1px solid #f5222d;
+  color: #f5222d;
+  border-radius: 10px;
+  padding: 12px 24px;
+  &:hover{
+    background-color: #f5222d;
+    color: white;
+  }
+}
+.button-add{
+  margin-left: 15px;
+  border: 1px solid #1890ff;
+    color: #1890ff;
+    border-radius: 10px;
+    padding: 12px 24px;
+    &:hover{
+      background-color: #1890ff;
+      color: white;
+    }
+}
+.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  display: flex;
+  color: red;
+  justify-content: center;
+  position: relative;
+  bottom: 15px;
+
+}

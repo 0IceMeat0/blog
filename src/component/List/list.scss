@@ -1,0 +1,70 @@
+.list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &-pagination{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  }
+}
+
+.item{
+  display: flex;
+  background-color: #FFFFFF;
+  margin-bottom: 15px;
+  width: 90lvw;
+ height: 140px;
+
+&-user{
+  margin-left: auto;
+  margin-top: 10px;
+  margin-right: 15px;
+  display: flex;
+  &__photo{
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+  }
+  &__info{
+    margin-top: 5px;
+    margin-right: 25px;
+  }
+  &__name{
+    font-size: 20px;
+   }
+  &__date{
+   font-size: 10px;
+   color: gray;
+  }
+}
+
+ &__title{
+  color: #1890ff;
+  font-weight: 400;
+  margin: 10px;
+ }
+ &__description{
+    height: 70px;
+    max-width: 680px;
+    margin-left: 10px;
+ }
+ &__tags{
+  margin-left: 10px;
+  .tag {
+    border: 1px solid ;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    min-width: 20px;
+    padding: 2px 3px;
+    font-size: 12px;
+  }
+ }
+  }
+
+.load{
+  display: block;
+  margin: auto;
+  margin-top: 25px;
+}

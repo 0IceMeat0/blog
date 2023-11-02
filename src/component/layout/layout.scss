@@ -1,0 +1,81 @@
+.header{
+  display: flex;
+  background-color: #FFFFFF;
+   height: 80px;
+   width: 100lvw;
+   align-items: center;
+    padding-left: 15px;
+    font-size: 18px;
+    margin-bottom: 50px;
+   &-buttons{
+    
+    margin-left: auto;
+    padding-right: 25px;
+    &__forLoginUsers{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: auto;
+    }
+    &__sign-in{
+      background-color: transparent;
+      padding: 10px;
+      border-radius: 10px;
+      margin-right: 10px;
+      transition: background-color 0.5s ease;
+      &:hover{
+        background-color: rgba(24, 144, 255, 1);
+        border-radius: 10px;
+        color: #FFFFFF;
+      }
+    }
+    &__sign-up{
+      background-color: transparent;
+      border: 1px solid rgba(82, 196, 26, 1);
+      border-radius: 10px;
+      padding: 10px;
+      transition: background-color 0.5s ease;
+      color: rgba(82, 196, 26, 1);
+      &:hover{
+        background-color: rgba(82, 196, 26, 1);
+        border-radius: 10px;
+        color: #FFFFFF;
+      }
+    }
+    &__create-article{
+      background-color: transparent;
+      border: 1px solid rgba(82, 196, 26, 1);
+      border-radius: 8px;
+      padding: 5px;
+      font-size: 14px;
+      margin-right: 20px;
+      transition: background-color 0.5s ease;
+      color: rgba(82, 196, 26, 1);
+      &:hover{
+        background-color: rgba(82, 196, 26, 1);
+        border-radius: 10px;
+        color: #FFFFFF;
+      }
+   }
+   &__log-out{
+    background-color: transparent;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    transition: background-color 0.5s ease;
+    &:hover{
+      background-color: black;
+      border-radius: 10px;
+      color: #FFFFFF;
+    }
+  }
+  &__avatar{
+    margin-left: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
+}
