@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import reducer from "./component/reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 const rootReducer = combineReducers({
   toolkit: reducer,

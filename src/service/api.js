@@ -1,184 +1,179 @@
+import axios from 'axios';
+
+
 const api = {
-  baseUrl: 'https://blog.kata.academy/api',
-  token: '',
+  baseUrl: "https://blog.kata.academy/api",
+  token: "",
 
+  async createNewUserAccount(newUser) {
+    try {
+      const response = await axios.post(`${this.baseUrl}/users`, { user: newUser });
+      const data = response.data;
+  
+      if (response.status !== 200) {
+        throw data.errors;
+      }
+  
+      this.token = data.user.token;
+      window.localStorage.setItem("token", this.token);
+  
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
 
-async createNewUserAccount(newUser) {
-  console.log(newUser);
-  const response = await fetch(`${this.baseUrl}/users`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify({ user: newUser }),
-  });
-  const data = await response.json();
-
-  if (!response.ok) {
-      throw data.errors;
-  }
-
-  this.token = data.user.token;
-  window.localStorage.setItem('token', this.token);
-
-  return data;
-},
-
-logOut() {
-  this.token = '';
-  window.localStorage.removeItem('token');
-},
+  logOut() {
+    this.token = "";
+    window.localStorage.removeItem("token");
+  },
 
 async login(loginData) {
-  console.log(loginData);
-  const response = await fetch(`${this.baseUrl}/users/login`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify({ user: loginData }),
-  });
-  const data = await response.json();
+  try {
+    const response = await axios.post(`${this.baseUrl}/users/login`, { user: loginData });
 
-  if (!response.ok) {
-      throw data.errors;
+    if (response.status !== 200) {
+      throw response.data.errors;
+    }
+
+    const data = response.data;
+
+    this.token = data.user.token;
+    window.localStorage.setItem("token", this.token);
+
+    return data;
+  } catch (error) {
+    throw error;
   }
-
-  this.token = data.user.token;
-  window.localStorage.setItem('token', this.token);
-
-  return data;
 },
 
-async getCurrentUser() {
-  const token = window.localStorage.getItem('token');
 
-  if (!token) {
-      throw new Error('Not found token');
-  }
-
-  const response = await fetch(`${this.baseUrl}/user`, {
-      method: 'GET',
-      headers: {
-          Authorization: `Bearer ${token}`,
-      },
-  });
-  const data = await response.json();
-
-  if (!response.ok) {
-      throw data.errors;
-  }
-
-  this.token = data.user.token;
-  window.localStorage.setItem('token', this.token);
+  async getCurrentUser() {
+    const token = window.localStorage.getItem("token");
   
-  return data;
-},
+    if (!token) {
+      throw new Error("Not found token");
+    }
+  
+    try {
+      const response = await axios.get(`${this.baseUrl}/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (response.status !== 200) {
+        throw response.data.errors;
+      }
+  
+      const data = response.data;
+  
+      this.token = data.user.token;
+      window.localStorage.setItem("token", this.token);
+  
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  
 
-async editUserAccount(newUserData) {
-  const response = await fetch(`${this.baseUrl}/user`, {
-      method: 'PUT',
-      headers: {
+  async createArticle(articleData) {
+    try {
+      const response = await axios.post(`${this.baseUrl}/articles`, { article: articleData }, {
+        headers: {
           'Content-Type': 'application/json;charset=utf-8',
           Authorization: `Bearer ${this.token}`,
-      },
-      body: JSON.stringify({ user: newUserData }),
-  });
-  const data = await response.json();
-
-  if (!response.ok) {
-      throw data.errors;
-  }
-
-  this.token = data.user.token;
-  window.localStorage.setItem('token', this.token);
-  console.log(data);
-  return data;
-},
-
-async createArticle(articleData) {
-    const response = await fetch(`${this.baseUrl}/articles`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            Authorization: `Bearer ${this.token}`,
         },
-        body: JSON.stringify({ article: articleData }),
-    });
-
-    if (!response.ok) {
+      });
+  
+      if (response.status !== 200) {
         throw new Error('Server Error!');
+      }
+  
+      const data = response.data;
+      return data;
+    } catch (error) {
+      throw error;
     }
-    const data = await response.json();
-
-    return data;
-},
-
-async deleteArticle(slug) {
-    const response = await fetch(`${this.baseUrl}/articles/${slug}`, {
-        method: 'DELETE',
+  },
+  
+  async deleteArticle(slug) {
+    try {
+      const response = await axios.delete(`${this.baseUrl}/articles/${slug}`, {
         headers: {
-            Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${this.token}`,
         },
-    });
-
-    if (!response.ok) {
-        throw new Error('Server Error!');
+      });
+  
+      if (response.status !== 200) {
+        throw new Error("Server Error!");
+      }
+    } catch (error) {
+      throw error;
     }
-},
-async updateArticle(articleData, slug) {
-    const response = await fetch(`${this.baseUrl}/articles/${slug}`, {
-        method: 'PUT',
+  },
+
+  async updateArticle(articleData, slug) {
+    try {
+      const response = await axios.put(`${this.baseUrl}/articles/${slug}`, { article: articleData }, {
         headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'application/json;charset=utf-8',
+          Authorization: `Bearer ${this.token}`,
         },
-        body: JSON.stringify({ article: articleData }),
-    });
-
-    if (!response.ok) {
+      });
+  
+      if (response.status !== 200) {
         throw new Error('Server Error!');
+      }
+  
+      const data = response.data;
+      return data;
+    } catch (error) {
+      throw error;
     }
-    const data = await response.json();
-
-    return data;
-},
+  },
+  
 
 async favoriteArticle(slug) {
-    const response = await fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${this.token}`,
-        },
+  try {
+    const response = await axios.post(`${this.baseUrl}/articles/${slug}/favorite`, null, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
     });
 
-    if (!response.ok) {
-        throw new Error('Server Error!');
+    if (response.status !== 200) {
+      throw new Error('Server Error!');
     }
 
-    const data = await response.json();
-
+    const data = response.data;
     return data;
+  } catch (error) {
+    throw error;
+  }
 },
+
 
 async unfavoriteArticle(slug) {
-    const response = await fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
-        method: 'DELETE',
-        headers: {
-            Authorization: `Bearer ${this.token}`,
-        },
+  try {
+    const response = await axios.delete(`${this.baseUrl}/articles/${slug}/favorite`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
     });
 
-    if (!response.ok) {
-        throw new Error('Server Error!');
+    if (response.status !== 200) {
+      throw new Error('Server Error!');
     }
 
-    const data = await response.json();
-
+    const data = response.data;
     return data;
+  } catch (error) {
+    throw error;
+  }
 },
 
 
-
-}
+};
 export default api;

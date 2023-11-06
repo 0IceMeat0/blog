@@ -1,21 +1,25 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import './list.scss';
-import { Pagination, Spin } from 'antd'; // Импортируем компонент Spin для отображения индикатора загрузки
+import "./listArticle.scss";
+import { Pagination, Spin } from "antd"; 
 import { getPages, setIdPages } from "../reducer";
 
-import ItemPage from "../itempage/itempage";
+import Article from "../article/article";
 
-function List() {
+function ListArticle() {
   const dispatch = useDispatch();
-  const { load, currentPage } = useSelector(state => state.toolkit);
-  const { articlesCount, articles } = useSelector(state => state.toolkit.pages);
+  const { load, currentPage } = useSelector((state) => state.toolkit);
+  const { articlesCount, articles } = useSelector(
+    (state) => state.toolkit.pages,
+  );
   const pageSize = 5;
 
- 
-
   async function apiGetForms(page) {
-    const res = await fetch(`https://blog.kata.academy/api//articles?limit=${pageSize}&offset=${(page - 1) * pageSize}`);
+    const res = await fetch(
+      `https://blog.kata.academy/api//articles?limit=${pageSize}&offset=${
+        (page - 1) * pageSize
+      }`,
+    );
     const data = await res.json();
     dispatch(getPages(data));
   }
@@ -25,13 +29,13 @@ function List() {
   }, [currentPage]);
 
   if (!load) {
-    return <Spin className="load" size="large" />; 
+    return <Spin className="load" size="large" />;
   }
 
   const element = articles.map((item) => {
     return (
       <div key={`${item.slug}${item.author}${item.description}`}>
-      <ItemPage  item={item}  />
+        <Article item={item} />
       </div>
     );
   });
@@ -50,4 +54,4 @@ function List() {
   );
 }
 
-export default List;
+export default ListArticle;

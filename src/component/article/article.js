@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import './itempage.scss'
+import "./article.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { format } from 'date-fns';
-import { HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { format } from "date-fns";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Tag } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteArticle, favoriteArticle, unfavoriteArticle } from "../reducer";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 
-function ItemPage({ item, isArticleView }) {
-  const { user, isLogin } = useSelector(state => state.toolkit);
+function Article({ item, isArticleView }) {
+  const { user, isLogin } = useSelector((state) => state.toolkit);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(item.favoritesCount);
-
 
   const sliceString = (str, num) => {
     if (str && str.length > num) {
@@ -25,7 +24,6 @@ function ItemPage({ item, isArticleView }) {
     return str;
   };
 
-  
   useEffect(() => {
     const localStorageData = localStorage.getItem(`article_${item.slug}`);
     if (localStorageData) {
@@ -34,7 +32,7 @@ function ItemPage({ item, isArticleView }) {
       setFavoritesCount(favoritesCount);
     }
   }, [item.slug]);
-  
+
   const onLike = () => {
     if (!isLogin) return;
     if (isFavorited) {
@@ -46,13 +44,16 @@ function ItemPage({ item, isArticleView }) {
       setIsFavorited(true);
       setFavoritesCount(favoritesCount + 1);
     }
-  
-    localStorage.setItem(`article_${item.slug}`, JSON.stringify({ favorited: isFavorited, favoritesCount }));
-  }
+
+    localStorage.setItem(
+      `article_${item.slug}`,
+      JSON.stringify({ favorited: isFavorited, favoritesCount }),
+    );
+  };
 
   const onDelete = () => {
     dispatch(deleteArticle({ slug: item.slug, navigate }));
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -66,44 +67,59 @@ function ItemPage({ item, isArticleView }) {
           </Link>
 
           {isFavorited && isLogin ? (
-  <HeartFilled className="heart-icon" onClick={onLike} />
-) : (
-  <HeartOutlined className="heart-icon-outlined" onClick={onLike} />
-)}
+            <HeartFilled className="heart-icon" onClick={onLike} />
+          ) : (
+            <HeartOutlined className="heart-icon-outlined" onClick={onLike} />
+          )}
 
-<span>{favoritesCount}</span>
+          <span>{favoritesCount}</span>
         </div>
         <div className="item__tags">
-          {item.tagList.map((tag, index) => <Tag key={index}>{sliceString(tag, 10)}</Tag>)}
+          {item.tagList.map((tag, index) => (
+            <Tag key={index}>{sliceString(tag, 10)}</Tag>
+          ))}
         </div>
         {item.description && (
-        <div className="item__description">
-        <ReactMarkdown children={item.description} />
-      </div>
+          <div className="item__description">
+            <ReactMarkdown children={item.description} />
+          </div>
         )}
 
-{item.body && (
-  <div className="item__body">
-    <ReactMarkdown children={item.body} />
-  </div>
-)}
+        {item.body && (
+          <div className="item__body">
+            <ReactMarkdown children={item.body} />
+          </div>
+        )}
       </div>
       <div className="item-user">
         <div className="item-user__info">
           <div className="item-user__name">{item.author.username}</div>
-          <div className="item-user__date">{format(new Date(item.createdAt), 'dd MMMM yyyy')}</div>
+          <div className="item-user__date">
+            {format(new Date(item.createdAt), "dd MMMM yyyy")}
+          </div>
         </div>
-        <img className="item-user__photo" src={item.author.image} alt="Author" />
+        <img
+          className="item-user__photo"
+          src={item.author.image}
+          alt="Author"
+        />
 
         {isArticleView && item.author.username === user.username && (
           <ul className="buttons">
             <li>
-              <button className="buttons__delete" type="button" onClick={() => setModal(true)}>
+              <button
+                className="buttons__delete"
+                type="button"
+                onClick={() => setModal(true)}
+              >
                 Delete
               </button>
             </li>
             <li>
-              <Link to={`/articles/${item.slug}/edit`} className="buttons__edit">
+              <Link
+                to={`/articles/${item.slug}/edit`}
+                className="buttons__edit"
+              >
                 Edit
               </Link>
             </li>
@@ -112,12 +128,22 @@ function ItemPage({ item, isArticleView }) {
 
         {modal && (
           <div className="message">
-            <span className="message__text">Are you sure to delete this article?</span>
+            <span className="message__text">
+              Are you sure to delete this article?
+            </span>
             <div className="message__buttons">
-              <button type="button" className="message__buttons-no" onClick={() => setModal(false)}>
+              <button
+                type="button"
+                className="message__buttons-no"
+                onClick={() => setModal(false)}
+              >
                 No
               </button>
-              <button type="button" className="message__buttons-yes" onClick={() => onDelete()}>
+              <button
+                type="button"
+                className="message__buttons-yes"
+                onClick={() => onDelete()}
+              >
                 Yes
               </button>
             </div>
@@ -128,4 +154,4 @@ function ItemPage({ item, isArticleView }) {
   );
 }
 
-export default ItemPage;
+export default Article;
